@@ -18,10 +18,10 @@
 \begin{minipage}{0.49\textwidth}
 \begin{itemize}
 \item Generate the input mesh (\textit{gmsh} or built-in \textit{meshmode})
-\item Create the target decompositions $M$,$N$
+\item Create the target decompositions $M$,$N$ with \textit{meshdist}
   \begin{itemize}
-  \item Creates required mapping files
-  \item Run \textit{meshdist} part to $M$, $N$ ranks
+  \item Creates required mapping pkl files
+  \item Creates $M$, $N$ pkl files (1 per rank)
   \end{itemize}
 \item Run \mirgecom{} on $M$ ranks
 \begin{itemize}
