@@ -16,12 +16,20 @@ SUBTALKS := $(shell ls thetalk-*.tex)
 #	$(LATEX) $*
 #	$(LATEX) $*	
 
-all: $(TALKNAME).pdf
+short: $(TALKNAME).short.pdf
+long: $(TALKNAME).pdf
+all: short long
 
-$(TALKNAME).pdf: $(BASENAME).tex $(SUBTALKS) $(FIGURES) ../ceesd-macros.tex ./mtc-macros.tex
+$(TALKNAME).short.pdf: $(BASENAME).short.tex $(SUBTALKS) $(FIGURES) ../ceesd-macros.tex ./mtc-macros.tex ./meshes.tex
+	$(LATEX) $(BASENAME).short
+	$(LATEX) $(BASENAME).short
+	mv $(BASENAME).short.pdf $(TALKNAME).short.pdf
+
+$(TALKNAME).pdf: $(BASENAME).tex $(SUBTALKS) $(FIGURES) ../ceesd-macros.tex ./mtc-macros.tex ./meshes.tex
 	$(LATEX) $(BASENAME)
 	$(LATEX) $(BASENAME)
 	mv $(BASENAME).pdf $(TALKNAME).pdf
+
 
 clean:
 	rm -fr _minted*  *.vrb *.tex~ *.toc *.aux *.log *.nav *.out *.snm *.flc $(BASENAME).pdf

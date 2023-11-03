@@ -1,0 +1,25 @@
+\newcommand{\bsmesh}[3][1]{
+  % Grid
+  \draw[step=#1, thin, black] (0,0) grid (#2,#3);
+  \draw[thick] (0,0) rectangle (#2,#3);
+
+}
+
+\newcommand{\multivolmesh}{
+  % Grid
+  \draw[step=1, thin, black] (0,0) grid (16,10);
+  \draw[thick] (0,0) rectangle (16,10);
+  % Red subregion
+  \foreach \i in {11, 12, 13, 14, 15} {
+    \foreach \j in {0, 1, 2} {
+      \fill[red] (\i+0.5, \j+0.5) circle (4pt);
+    }
+  }
+    
+  % Blue subregion
+  \foreach \i in {9, 10} {
+    \foreach \j in {0, 1, 2} {
+      \fill[blue] (\i+0.5, \j+0.5) circle (4pt);
+    }
+  }
+}
