@@ -208,3 +208,18 @@ title={\strut#1},
     % \node[font=\tiny] at ([xshift=-0.5cm, yshift=2.25mm] box.north east) {#2};
   \end{tikzpicture}
 }
+
+\newcommand{\snippetboxbigtab}[2]{
+  \begin{tikzpicture}
+    % Draw the box
+    \node[draw=black!75!black, fill=white, rounded corners=1mm, text width=0.8\linewidth, inner sep=5pt, anchor=north west] (box) {
+        \lstinputlisting[style=kkcodestyle, basicstyle=\tiny, language=Python]{#1}
+    };
+
+    % Draw the tab
+    \draw[thin, rounded corners=1mm] (box.north east) -- ++(0,0.3) -- ++(-2.8,0) [rounded corners=0mm] -- ++(0,-0.3) -- cycle;
+    \node[font=\tiny] at ([xshift=-1.3cm, yshift=1.5mm] box.north east) {#2};    % Draw the tab
+    % \draw[thick, rounded corners=1mm] (box.north east) -- ++(0,0.5) -- ++(-1,0) [rounded corners=0mm] -- ++(0,-0.5) -- cycle;
+    % \node[font=\tiny] at ([xshift=-0.5cm, yshift=2.25mm] box.north east) {#2};
+  \end{tikzpicture}
+}
