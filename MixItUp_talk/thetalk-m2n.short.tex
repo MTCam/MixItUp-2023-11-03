@@ -42,74 +42,6 @@
 \end{frame}
 
 
-\begin{frame}[fragile]\frametitle{Example Multivolume Mesh with Meshmode}
-\vspace{-10pt}
-\begin{minipage}{0.5\textwidth}
-\begin{itemize}
-\item Creation of multi-volume mesh with \textit{meshmode}
-\item \texttt{tag\_to\_elements} maps tag string to numpy array of element indices
-\end{itemize}
-\end{minipage}
-
-\begin{tikzpicture}[overlay,remember picture]
-\begin{scope}[yshift=-5pt]
-\node(code)at([xshift=-1.3in,yshift=-0.5in]current page.center){
-  \begin{minipage}{0.5\textwidth}
-    \begin{lstlisting}[style=mintedlike,basicstyle=\mintedlikebasicstyle{\footnotesize}]
-  from meshmode.mesh.generation import \
-      generate_regular_rect_mesh
-  mesh = generate_regular_rect_mesh(
-      a=(-L/2, -L/2),
-      b=(L/2, L/2),
-      n=16,
-      boundary_tag_to_face={
-          "LeftRight": ["-x", "+x"],
-          "BottomTop": ["-y", "+y"]})
-  x_avg = np.sum(x, axis=1)/x.shape[1]
-  tag_to_elements = {
-      "Vol1": np.where(x_avg < vol1_loc)[0],
-      "Vol2": np.where(x_avg > vol1_loc)[0]}
-    \end{lstlisting}
-  \end{minipage}
-};
-\end{scope}
-\end{tikzpicture}
-\hfill
-\begin{minipage}{0.5\textwidth}
-\begin{tikzpicture}[scale=0.4]
-    % Grid
-    \draw[step=1, thin, black] (0,0) grid (16,10);
-    \draw[thick] (0,0) rectangle (16,10);
-    % Red subregion
-    \foreach \i in {11, 12, 13, 14, 15} {
-        \foreach \j in {0, 1, 2} {
-            \fill[red] (\i+0.5, \j+0.5) circle (4pt);
-        }
-    }
-    
-    % Blue subregion
-    \foreach \i in {9, 10} {
-        \foreach \j in {0, 1, 2} {
-            \fill[blue] (\i+0.5, \j+0.5) circle (4pt);
-        }
-    }
-\end{tikzpicture}
-\begin{tikzpicture}[overlay, remember picture, scale=0.3]
-  % Legend Box
-  \begin{scope}[xshift=-20.8cm, yshift=16.8cm]
-    \draw[thick] (-1,0.5) rectangle (6,-3);
-   
-    \fill[blue] (0,-0.5) circle (6pt); % Blue dot
-    \node[align=left] at (3,-0.5) {Volume 1};
-     
-    \fill[red] (0,-2) circle (6pt);  % Red dot
-    \node[align=left] at (3,-2) {Volume 2};
-  \end{scope}
-\end{tikzpicture}
-\end{minipage}
-
-\end{frame}
-
 \begin{frame}\frametitle{\textit{meshdist}: \mirgecom{} Mesh Partitioning Utility}
   \begin{minipage}[t][.4\textheight][t]{\textwidth}
     %\begin{multicols}{2}
@@ -193,6 +125,18 @@
       \end{scope}
     \end{tikzpicture}
   \end{minipage}
+\begin{tikzpicture}[overlay, remember picture, scale=0.3]
+  % Legend Box
+  \begin{scope}[xshift=-4cm, yshift=12cm]
+    \draw[thick] (-1,0.5) rectangle (6,-3);
+   
+    \fill[blue] (0,-0.5) circle (6pt); % Blue dot
+    \node[align=left] at (3,-0.5) {Volume 1};
+     
+    \fill[red] (0,-2) circle (6pt);  % Red dot
+    \node[align=left] at (3,-2) {Volume 2};
+  \end{scope}
+\end{tikzpicture}
 \end{frame}
 
 \begin{frame}\frametitle{Run \mirgecom{} on $M$ MPI Ranks (Multivolume)}
