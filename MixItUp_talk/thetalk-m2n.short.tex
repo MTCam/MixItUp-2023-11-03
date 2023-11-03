@@ -25,12 +25,14 @@
   \end{itemize}
 \item Run \mirgecom{} on $M$ ranks
 \begin{itemize}
-%\item Example: Reading pre-generated mesh
 \item Generates $M$ restart files per dump
 \end{itemize}
 \item Perform M-to-N transfer with \textit{redist}
-\item Restart \mirgecom{} on $N$ ranks -or-
-\item Post-processing/viz for $N$ ranks
+\item After that, run as usual:
+  \begin{itemize}
+  \item Restart \mirgecom{} on $N$ ranks
+  \item Post-processing/viz for $N$ ranks
+  \end{itemize}
 \end{itemize}
 \end{minipage}
 \hfill
@@ -41,7 +43,7 @@
 
 
 \begin{frame}[fragile]\frametitle{Example Multivolume Mesh with Meshmode}
-
+\vspace{-10pt}
 \begin{minipage}{0.5\textwidth}
 \begin{itemize}
 \item Creation of multi-volume mesh with \textit{meshmode}
@@ -50,6 +52,7 @@
 \end{minipage}
 
 \begin{tikzpicture}[overlay,remember picture]
+\begin{scope}[yshift=-5pt]
 \node(code)at([xshift=-1.3in,yshift=-0.5in]current page.center){
   \begin{minipage}{0.5\textwidth}
     \begin{lstlisting}[style=mintedlike,basicstyle=\mintedlikebasicstyle{\footnotesize}]
@@ -69,6 +72,7 @@
     \end{lstlisting}
   \end{minipage}
 };
+\end{scope}
 \end{tikzpicture}
 \hfill
 \begin{minipage}{0.5\textwidth}
@@ -124,7 +128,7 @@
   \center{\texttt{python -m mpi4py meshdist.py -1 -n 4 -i box.msh -o box\_4p}}
   \begin{minipage}[b][.4\textheight][t]{\textwidth}
     \begin{tikzpicture}[overlay, remember picture, scale=0.3]
-      \begin{scope}[yshift=-11cm]
+      \begin{scope}[yshift=-11cm, xshift=30pt]
         % Grid
         \draw[step=1, thin, black] (0,0) grid (16,10);
         \draw[thick] (0,0) rectangle (16,10);
@@ -209,6 +213,7 @@
   \center{\texttt{mpiexec -n 4 python -m mpi4py prediction.py -i run\_params.yaml --lazy}}
   \begin{minipage}[b][.4\textheight][t]{\textwidth}
     \begin{tikzpicture}[overlay, remember picture, scale=0.25]
+      \begin{scope}[xshift=10pt]
       \node at (2cm, -14.5cm) (center) {};
 
       %\begin{scope}[shift={(center)}]  % yshift=-10cm]
@@ -327,6 +332,7 @@
           \draw[->, ultra thick] (leftGridCenter) -- node[midway, fill=white, text width=3cm, align=center] {\textit{MIRGE-Com}} (rightGridCenter);
         \end{scope}
       \end{scope}
+      \end{scope}
     \end{tikzpicture}
   \end{minipage}
 \end{frame}
@@ -337,8 +343,10 @@
   \item No reliable way to associate DOFArrays with PartIDs
   \item Really convenient; almost completely bonkers
   \end{itemize}
-\begin{tikzpicture}
-  \node at (0,0) {\snippetboxbigtab{Figures/mtc/write_restart.py}{\href{https://github.com/illinois-ceesd/drivers_y3-prediction/blob/main/y3prediction/prediction.py}{prediction\_write\_restart}}};
+  \begin{tikzpicture}
+    \begin{scope}[yshift=7pt, xshift=7pt]
+      \node at (0,0) {\snippetboxbigtab{Figures/mtc/write_restart.py}{\href{https://github.com/illinois-ceesd/drivers_y3-prediction/blob/main/y3prediction/prediction.py}{prediction\_write\_restart}}};
+    \end{scope}
 \end{tikzpicture}
 \end{frame}
 
@@ -363,6 +371,7 @@
   \center{\texttt{redist.py -m 4 -n 3 -i rst\_4p -s mesh\_4p -t mesh\_3p -o rst\_3p}}
   \begin{minipage}[b][.4\textheight][t]{\textwidth}
     \begin{tikzpicture}[overlay, remember picture, scale=0.25]
+      \begin{scope}[yshift=10pt, xshift=20pt]
       \node at (2cm, -14.5cm) (center) {};
 
       %\begin{scope}[shift={(center)}]  % yshift=-10cm]
@@ -497,6 +506,7 @@
           % Arrow with text
           \draw[->, ultra thick] (leftGridCenter) -- node[midway, fill=white, text width=3cm, align=center] {\textit{redist}} (rightGridCenter);
         \end{scope}
+      \end{scope}
       \end{scope}
     \end{tikzpicture}
   \end{minipage}
